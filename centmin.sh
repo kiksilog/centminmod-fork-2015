@@ -272,7 +272,7 @@ IGBINARYGIT='y'
 ZOPCACHEDFT='y'
 ZOPCACHECACHE_VERSION='7.0.3'
 # Python
-PYTHON_VERSION='2.7.8'       # Use this version of Python
+PYTHON_VERSION='2.7.9'       # Use this version of Python
 SIEGE_VERSION='3.0.6'
 
 WGETOPT='-cnv --no-dns-cache -4'
