@@ -47,30 +47,47 @@ fi # raise user process limits
 if [[ ! -f /proc/user_beancounters ]]; then
 cat >> "/etc/sysctl.conf" <<EOF
 # centminmod added
-net.core.wmem_max=12582912
-net.core.rmem_max=12582912
-net.ipv4.tcp_rmem= 10240 87380 12582912
-net.ipv4.tcp_wmem= 10240 87380 12582912
-net.core.netdev_max_backlog=8192
-net.core.somaxconn=8150
-net.core.optmem_max=8192
-net.ipv4.tcp_fin_timeout=20
-net.ipv4.tcp_keepalive_intvl=30
-net.ipv4.tcp_keepalive_probes=3
-net.ipv4.tcp_keepalive_time=300
-net.ipv4.tcp_max_syn_backlog=8192
-net.ipv4.tcp_sack=0
-net.ipv4.tcp_syn_retries=3
-net.ipv4.tcp_synack_retries = 2
-net.ipv4.tcp_tw_recycle = 1
+# Increase max half-open connections.
+net.ipv4.tcp_max_syn_backlog=65535
+
+# Max listen queue backlog
+# make sure to increase nginx backlog as well if changed
+# change nginx, fpm, mysql backlog to 16384 (1024 per 128mb memory, 2048/128 = 16, 16*1024 = 16384)
+net.core.somaxconn = 16384
+
+#net.ipv4.tcp_syncookies = 1
+
+net.ipv4.tcp_rmem = 4096 65536 16777216
+
+net.ipv4.tcp_wmem = 4096 65536 16777216
+
+net.ipv4.tcp_fin_timeout = 10
+
 net.ipv4.tcp_tw_reuse = 1
-vm.swappiness=20
-vm.min_free_kbytes=65536
-net.ipv4.ip_local_port_range=10000 65500
+
+net.ipv4.tcp_max_tw_buckets = 2097152
+
+net.ipv4.tcp_tw_recycle = 0
+
+#
+# this backlog = somaxconn
+net.core.netdev_max_backlog = 16384
+
+net.core.rmem_max = 16777216
+net.core.wmem_max = 16777216
+net.core.rmem_default = 16777216
+net.core.wmem_default = 16777216
+
+vm.swappiness = 10
+
+net.ipv4.ip_local_port_range = 10000 65000
+
+net.ipv4.tcp_slow_start_after_idle = 0
+
 EOF
 sysctl -p
 
-sed -i 's/backlog=256/backlog=2048/g' $CM_INSTALLDIR/config/nginx/conf.d/virtual.conf
+sed -i 's/backlog=256/backlog=16384/g' $CM_INSTALLDIR/config/nginx/conf.d/virtual.conf
 
 fi
 

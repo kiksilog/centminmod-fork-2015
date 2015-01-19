@@ -1,7 +1,7 @@
 #######################################################################################
 # MariaDB MySQL Upgrade sub menu
 #######################################################################################
-ENABLE_MARIADBTENUPGRADE='n'
+ENABLE_MARIADBTENUPGRADE='y'
 
 mariadbsubmenu() {
 

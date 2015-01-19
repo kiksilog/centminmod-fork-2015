@@ -21,19 +21,6 @@ cat > "/home/nginx/domains/$vhostname/public/index.html" <<END
 <p>Welcome to $vhostname. This index.html page can be removed.</p>
 
 <p>Useful Centmin Mod info and links to bookmark.</p>
-
-<ul>
-  <li>Getting Started Guide - <a href="http://centminmod.com/getstarted.html" target="_blank">http://centminmod.com/getstarted.html</a></li>
-  <li>Latest Centmin Mod version - <a href="http://centminmod.com" target="_blank">http://centminmod.com</a></li>
-  <li>Centmin Mod FAQ - <a href="http://centminmod.com/faq.html" target="_blank">http://centminmod.com/faq.html</a></li>
-  <li>Change Log - <a href="http://centminmod.com/changelog.html" target="_blank">http://centminmod.com/changelog.html</a></li>
-  <li>Google+ Page latest news <a href="http://centminmod.com/gpage" target="_blank">http://centminmod.com/gpage</a></li>
-  <li>Google+ Community Forum <a href="http://centminmod.com/gcom" target="_blank">http://centminmod.com/gcom</a></li>
-  <li>Centmin Mod Twitter <a href="https://twitter.com/centminmod" target="_blank">https://twitter.com/centminmod</a></li>
-</ul>
-
-<p><a href="https://www.digitalocean.com/?refcode=c1cb367108e8" target="_blank">Cheap VPS Hosting at Digitalocean</a></p>
-
 </body>
 </html>
 END
@@ -54,7 +41,9 @@ cat > "/usr/local/nginx/conf/conf.d/$vhostname.conf" <<END
 #       }
 
 server {
-  server_name $vhostname www.$vhostname;
+	listen [::]:80;
+	listen   80;
+	server_name $vhostname www.$vhostname;
 
 # ngx_pagespeed & ngx_pagespeed handler
 #include /usr/local/nginx/conf/pagespeed.conf;
@@ -68,7 +57,25 @@ server {
   error_log /home/nginx/domains/$vhostname/log/error.log;
 
   root /home/nginx/domains/$vhostname/public;
+set \$cache_uri \$request_uri;
 
+  # POST requests and urls with a query string should always go to PHP
+  if (\$request_method = POST) {
+    set \$cache_uri 'null cache';
+  }   
+  if (\$query_string != "") {
+    set \$cache_uri 'null cache';
+  }   
+
+  # Don't cache uris containing the following segments
+  if (\$request_uri ~* "(/wp-admin/|/xmlrpc.php|/wp-(app|cron|login|register|mail).php|wp-.*.php|/feed/|index.php|wp-comments-popup.php|wp-links-opml.php|wp-locations.php|sitemap(_index)?.xml|[a-z0-9_-]+-sitemap([0-9]+)?.xml)") {
+    set \$cache_uri 'null cache';
+  }   
+
+  # Don't use the cache for logged in users or recent commenters
+  if (\$http_cookie ~* "comment_author|wordpress_[a-f0-9]+|wp-postpass|wordpress_logged_in") {
+    set \$cache_uri 'null cache';
+  }
   location / {
 
 # block common exploits, sql injections etc
@@ -82,7 +89,7 @@ server {
 
   # Enable for vBulletin usage WITHOUT vbSEO installed
   #try_files		\$uri \$uri/ /index.php;
-
+	try_files /wp-content/cache/supercache/\$http_host/\$cache_uri/index.html \$uri \$uri/ /index.php ;
   }
 
   include /usr/local/nginx/conf/staticfiles.conf;

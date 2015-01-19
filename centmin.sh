@@ -1,13 +1,13 @@
 #!/bin/sh
-ZONEINFO=Etc/UTC  # Set Timezone
-NGINX_IPV='n' #NGINX IPV6 compile support for unattended mode only
+ZONEINFO=ZONEINFO=Asia/Manila  # Set Timezone
+NGINX_IPV='y' #NGINX IPV6 compile support for unattended mode only
 USEEDITOR='nano' # choice between nano or vim text editors for cmd shortcuts
 
-CUSTOMSERVERNAME='y'
+CUSTOMSERVERNAME='n'
 CUSTOMSERVERSTRING='nginx centminmod'
 PHPFPMCONFDIR='/usr/local/nginx/conf/phpfpmd'
 
-UNATTENDED='y' # please leave at 'y' for best compatibility as at .07 release
+UNATTENDED='n' # please leave at 'y' for best compatibility as at .07 release
 CMVERSION_CHECK='n'
 #####################################################
 DT=`date +"%d%m%y-%H%M%S"`
@@ -170,7 +170,7 @@ CCACHESIZE='2G'
 # can be re-enabled with commands
 # service servicename start; chkconfig servicename on
 NSD_DISABLED=n               # NSD disabled by default with chkconfig off
-MEMCACHED_DISABLED=n          # Memcached server disabled by default via chkconfig off
+MEMCACHED_DISABLED=y          # Memcached server disabled by default via chkconfig off
 PHP_DISABLED=n                # PHP-FPM disabled by default with chkconfig off
 MYSQLSERVICE_DISABLED=n       # MariaDB MySQL service disabled by default with chkconfig off
 
@@ -183,7 +183,7 @@ NGINXPATCH=n                 # Set to y to allow 30 seconds time before Nginx co
 NGINX_INSTALL=y              # Install Nginx (Webserver)
 NGINX_GEOIP=n			 # Nginx GEOIP module install
 NGINX_SPDY=y                 # Nginx SPDY support
-NGINX_PAGESPEED=y            # Install ngx_pagespeed
+NGINX_PAGESPEED=n            # Install ngx_pagespeed
 NGINX_PAGESPEEDGITMASTER=y   # Install ngx_pagespeed from official github master instead  
 NGXPGSPEED_VER='1.9.32.3-beta'
 NGINX_PAGESPEEDPSOL_VER='1.9.32.3'
@@ -251,7 +251,7 @@ PCRE_VERSION='8.35'          # NO longer used/ignored
 
 # PHP and Cache/Acceleration
 IMAGICKPHP_VER='3.1.2'   # PHP extension for imagick
-MEMCACHED_INSTALL=y          # Install Memcached
+MEMCACHED_INSTALL=n          # Install Memcached
 LIBEVENT_VERSION='2.0.21'    # Use this version of Libevent
 MEMCACHED_VERSION='1.4.20'    # Use this version of Memcached server
 MEMCACHE_VERSION='3.0.8'     # Use this version of Memcache
@@ -262,14 +262,14 @@ TWEMPERF_VER='0.1.1'
 
 FFMPEGVER='0.6.0'
 SUHOSINVER='0.9.36'
-PHP_VERSION='5.4.33'          # Use this version of PHP
+PHP_VERSION='5.6.4'          # Use this version of PHP
 PHP_MIRRORURL='http://php.net'
 PHPUPGRADE_MIRRORURL='http://php.net'
 XCACHE_VERSION='3.1.0'       # Use this version of Xcache
 APCCACHE_VERSION='3.1.13'       # Use this version of APC Cache
 IGBINARY_VERSION='1.1.1'
 IGBINARYGIT='y'
-ZOPCACHEDFT='n'
+ZOPCACHEDFT='y'
 ZOPCACHECACHE_VERSION='7.0.3'
 # Python
 PYTHON_VERSION='2.7.8'       # Use this version of Python
