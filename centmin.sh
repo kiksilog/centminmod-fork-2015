@@ -1,5 +1,5 @@
 #!/bin/sh
-ZONEINFO=ZONEINFO=Asia/Manila  # Set Timezone
+ZONEINFO=Asia/Manila  # Set Timezone
 NGINX_IPV='y' #NGINX IPV6 compile support for unattended mode only
 USEEDITOR='nano' # choice between nano or vim text editors for cmd shortcuts
 
