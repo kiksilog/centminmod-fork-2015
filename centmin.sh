@@ -169,14 +169,14 @@ CCACHESIZE='2G'
 # The service is still installed but disabled by default 
 # can be re-enabled with commands
 # service servicename start; chkconfig servicename on
-NSD_DISABLED=n               # NSD disabled by default with chkconfig off
+NSD_DISABLED=y               # NSD disabled by default with chkconfig off
 MEMCACHED_DISABLED=y          # Memcached server disabled by default via chkconfig off
 PHP_DISABLED=n                # PHP-FPM disabled by default with chkconfig off
 MYSQLSERVICE_DISABLED=n       # MariaDB MySQL service disabled by default with chkconfig off
 
 # General Configuration
 NGINXUPGRADESLEEP='6'
-NSD_INSTALL=y                # Install NSD (DNS Server)
+NSD_INSTALL=n                # Install NSD (DNS Server)
 NSD_VERSION='3.2.17'         # NSD Version
 NTP_INSTALL=y                # Install Network time protocol daemon
 NGINXPATCH=n                 # Set to y to allow 30 seconds time before Nginx configure and patching Nginx
