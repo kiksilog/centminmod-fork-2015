@@ -237,7 +237,7 @@ NGINXDIR='/usr/local/nginx'
 NGINXCONFDIR="${NGINXDIR}/conf"
 NGINXBACKUPDIR='/usr/local/nginxbackup'
 NOSOURCEOPENSSL='y'	# set to 'y' to disable OpenSSL source compile for system default YUM package setup
-OPENSSL_VERSION='1.0.2'     # Use this version of OpenSSL
+OPENSSL_VERSION='1.0.2a'     # Use this version of OpenSSL
 
 # Choose whether to compile Nginx --with-google_perftools_module
 # no longer used in Centmin Mod v1.2.3-eva2000.01 and higher
@@ -262,7 +262,7 @@ TWEMPERF_VER='0.1.1'
 
 FFMPEGVER='0.6.0'
 SUHOSINVER='0.9.36'
-PHP_VERSION='5.6.6'          # Use this version of PHP
+PHP_VERSION='5.6.7'          # Use this version of PHP
 PHP_MIRRORURL='http://php.net'
 PHPUPGRADE_MIRRORURL='http://php.net'
 XCACHE_VERSION='3.1.0'       # Use this version of Xcache
@@ -423,10 +423,10 @@ CM_INSTALLDIR=$CUR_DIR
 # FUNCTIONS
 
 if [[ "$CENTOSVER" = '6.0' || "$CENTOSVER" = '6.1' || "$CENTOSVER" = '6.2' || "$CENTOSVER" = '6.3' || "$CENTOSVER" = '6.4' || "$CENTOSVER" = '6.5' || "$CENTOSVER" = '6.6' ]]; then
-DOWNLOADAPP='axel -a'
-WGETRETRY=''
-AXELPHPTARGZ="-o php-${PHP_VERSION}.tar.gz"
-AXELPHPUPGRADETARGZ="-o php-${phpver}.tar.gz"
+DOWNLOADAPP="wget ${WGETOPT} --progress=bar"
+WGETRETRY='--tries=3'
+AXELPHPTARGZ="-O php-${PHP_VERSION}.tar.gz"
+AXELPHPUPGRADETARGZ="-O php-${phpver}.tar.gz"
 else
 DOWNLOADAPP="wget ${WGETOPT} --progress=bar"
 WGETRETRY='--tries=3'
