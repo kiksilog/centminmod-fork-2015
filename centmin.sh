@@ -231,11 +231,7 @@ MYSQL_INSTALL=n              # Install official Oracle MySQL Server (MariaDB alt
 SENDMAIL_INSTALL=n           # Install Sendmail (and mailx) set to y and POSTFIX_INSTALL=n for sendmail
 POSTFIX_INSTALL=y            # Install Postfix (and mailx) set to n and SENDMAIL_INSTALL=y for sendmail
 # Nginx
-<<<<<<< HEAD
-NGINX_VERSION='1.7.10'        # Use this version of Nginx
-=======
 NGINX_VERSION='1.7.12'        # Use this version of Nginx
->>>>>>> origin/123.07stable
 NGINXBACKUP='y'
 NGINXDIR='/usr/local/nginx'
 NGINXCONFDIR="${NGINXDIR}/conf"
@@ -266,11 +262,7 @@ TWEMPERF_VER='0.1.1'
 
 FFMPEGVER='0.6.0'
 SUHOSINVER='0.9.36'
-<<<<<<< HEAD
 PHP_VERSION='5.6.8'          # Use this version of PHP
-=======
-PHP_VERSION='5.4.40'          # Use this version of PHP
->>>>>>> origin/123.07stable
 PHP_MIRRORURL='http://php.net'
 PHPUPGRADE_MIRRORURL='http://php.net'
 XCACHE_VERSION='3.1.0'       # Use this version of Xcache
